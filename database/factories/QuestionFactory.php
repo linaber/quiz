@@ -25,7 +25,20 @@ class QuestionFactory extends Factory
                 ['text' => fake()->word(), 'is_correct' => true]
             ]),
             'hint' => fake()->boolean(70) ? fake()->sentence() : null,
-            'difficulty_rating' => fake()->randomFloat(1, 1, 5)
+            'difficulty_rating' => fake()->randomFloat(1, 1, 5),
+            'is_multilanguage_compatible' => fake()->boolean(20),
+            'translatable_fields' => function (array $attributes) {
+                return $attributes['is_multilanguage_compatible'] ? [
+                    'question_text' => [
+                        'en' => $attributes['question_text'],
+                        'ru' => fake()->sentence() . '?'
+                    ],
+                    'hint' => [
+                        'en' => $attributes['hint'],
+                        'ru' => fake()->boolean(50) ? fake()->sentence() : null
+                    ]
+                ] : null;
+            }
         ];
     }
 }

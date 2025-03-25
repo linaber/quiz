@@ -34,6 +34,11 @@ return new class extends Migration
 
             $table->timestamps();
         });
+
+        Schema::table('questions', function (Blueprint $table) {
+            $table->boolean('is_multilanguage_compatible')->default(false)->after('is_multiplayer_compatible');
+            $table->json('translatable_fields')->nullable()->after('is_multilanguage_compatible');
+        });
     }
 
     /**
