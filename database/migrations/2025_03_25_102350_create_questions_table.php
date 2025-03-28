@@ -13,32 +13,42 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-
+            $table->string('title')->nullable();
             // Контент вопроса
-            $table->enum('content_type', ['text', 'image', 'audio', 'video'])->default('text');
             $table->text('question_text');
+            $table->enum('content_type', ['text', 'image', 'audio', 'video'])->default('text');
             $table->string('media_path')->nullable();
 
             // Ответы
             $table->enum('answer_type', ['options', 'input', 'multimedia'])->default('options');
             $table->json('options')->nullable(); // [{text: "...", is_correct: bool, media_path: "..."}]
-            $table->string('correct_answer')->nullable(); // Для типов input/multimedia
+            $table->string('correct_answer_text')->nullable();
+            $table->string('correct_answer_media_path')->nullable();
 
             // Подсказки
-            $table->text('hint')->nullable();
-            $table->float('hint_price')->default(10);
+
+            $table->enum('hint_content_type', ['text', 'image', 'audio', 'video'])->default('text');
+            $table->text('hint_text')->nullable();
+            $table->string('hint_media_path')->nullable();
+            $table->unsignedTinyInteger('hint_price')->default(10);
+            $table->integer('times_hint_used')->default(0);
+            $table->integer('times_correct_with_hint')->default(0);
 
             // Статистика
+
             $table->float('difficulty_rating')->default(3.0);
             $table->boolean('is_multiplayer_compatible')->default(true);
+            $table->boolean('is_multilanguage_compatible')->default(false);
+            $table->json('translatable_fields')->nullable();
+
+            $table->integer('times_answered')->default(0);
+            $table->integer('times_correct')->default(0);
+
 
             $table->timestamps();
         });
 
-        Schema::table('questions', function (Blueprint $table) {
-            $table->boolean('is_multilanguage_compatible')->default(false)->after('is_multiplayer_compatible');
-            $table->json('translatable_fields')->nullable()->after('is_multilanguage_compatible');
-        });
+
     }
 
     /**
