@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('media_path')->nullable();
 
             // Ответы
-            $table->enum('answer_type', ['options', 'input', 'multimedia'])->default('options');
+            $table->enum('answer_type', ['options', 'input', 'image', 'audio', 'video'])->default('options');
             $table->json('options')->nullable(); // [{text: "...", is_correct: bool, media_path: "..."}]
-            $table->string('correct_answer_text')->nullable();
+
             $table->string('correct_answer_media_path')->nullable();
 
             // Подсказки
@@ -30,9 +30,6 @@ return new class extends Migration
             $table->enum('hint_content_type', ['text', 'image', 'audio', 'video'])->default('text');
             $table->text('hint_text')->nullable();
             $table->string('hint_media_path')->nullable();
-            $table->unsignedTinyInteger('hint_price')->default(10);
-            $table->integer('times_hint_used')->default(0);
-            $table->integer('times_correct_with_hint')->default(0);
 
             // Статистика
 
@@ -43,10 +40,14 @@ return new class extends Migration
 
             $table->integer('times_answered')->default(0);
             $table->integer('times_correct')->default(0);
+            $table->integer('times_hint_used')->default(0);
+            $table->integer('times_correct_with_hint')->default(0);
 
 
             $table->timestamps();
         });
+
+
 
 
     }

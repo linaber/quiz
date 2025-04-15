@@ -17,6 +17,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('user'); // admin/user
+            $table->boolean('is_banned')->default(false);
+            $table->timestamp('banned_at')->nullable();
+            $table->boolean('force_password_change')->default(false);
+            $table->integer('balance')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

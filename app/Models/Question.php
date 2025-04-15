@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class Question extends Model
 {
@@ -12,10 +14,18 @@ class Question extends Model
         'translatable_fields' => 'array',
         'is_multilanguage_compatible' => 'boolean'
     ];
+
+
+
     protected $guarded = [];
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function answers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Answer::class);
     }
 
     public function getTranslatable(string $field, string $locale = null): ?string
@@ -41,4 +51,15 @@ class Question extends Model
             $this->save();
         }
     }
+
+//    protected static function booted()
+//    {
+//        static::saving(function (Question $question) {
+//            if ($question->answers->where('is_primary', true)->count() !== 1) {
+//                throw ValidationException::withMessages([
+//                    'text' => 'Требуется ровно один основной ответ.',
+//                ]);
+//            }
+//        });
+//    }
 }

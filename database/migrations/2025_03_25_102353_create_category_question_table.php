@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('category_question', function (Blueprint $table) {
             $table->foreignId('category_id')->constrained();
-            $table->foreignId('question_id')->constrained();
+            $table->foreignId('question_id')->constrained()->onDelete('cascade');;
             $table->primary(['category_id', 'question_id']);
         });
     }

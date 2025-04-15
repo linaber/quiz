@@ -29,5 +29,11 @@ class AppServiceProvider extends ServiceProvider
         Route::prefix('api')
         ->middleware('api')
         ->group(base_path('routes/api.php'));
+
+        \Illuminate\Support\Facades\Gate::define('viewFilament', function (User $user) {
+            return $user->role === 'admin';
+        });
     }
+
+
 }

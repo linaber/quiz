@@ -40,7 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+        'filament' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -60,10 +70,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+//        'users' => [
+//            'driver' => 'eloquent',
+//            'model' => env('AUTH_MODEL', App\Models\User::class),
+//        ],
+
+            'users' => [
+                'driver' => 'eloquent',
+                'model' => App\Models\User::class, // или твоя модель пользователя
+            ],
 
         // 'users' => [
         //     'driver' => 'database',
