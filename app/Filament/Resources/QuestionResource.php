@@ -103,6 +103,7 @@ class QuestionResource extends Resource
                     Tabs\Tab::make('Вопрос')->schema([
                         Textarea::make('question_text')
                             ->label(__('filament.question_text'))
+                            ->rows(8)
                             ->required()
                             ->autofocus(),
 
@@ -186,9 +187,9 @@ class QuestionResource extends Resource
                                 $set('hint_media_path', null);
                             }),
 
-                        TextInput::make('hint_text')
+                        Textarea::make('hint_text')
                             ->label(__('filament.text'))
-                            ->maxLength(255),
+                            ->rows(4),
 
 // IMAGE
                         FileUpload::make('hint_media_path')
@@ -257,6 +258,14 @@ class QuestionResource extends Resource
                             ->live(),
 
                         // Текстовые ответы
+
+
+                        Textarea::make('answer_description')
+                            ->label(__('filament.answer_description'))
+                            ->rows(8)
+                            ->autofocus(),
+
+
                         Repeater::make('answers')
                             ->label(__('filament.correct_answers'))
                             ->relationship('answers')
