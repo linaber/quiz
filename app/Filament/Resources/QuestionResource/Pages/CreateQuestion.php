@@ -14,7 +14,10 @@ class CreateQuestion extends CreateRecord
 {
     use HandlesCreateRecordException;
     protected static string $resource = QuestionResource::class;
-
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 //
 //    protected function mutateFormDataBeforeCreate(array $data): array
 //    {
