@@ -13,6 +13,7 @@ return [
     'media_path' => 'Путь к медиа',
     'answer_type' => 'Тип ответа',
     'correct_answer_text' => 'Правильный ответ',
+    'answer_description' => 'Объяснение ответа',
     'correct_answers' => 'Правильные ответы',
     'correct_answer_media_path' => 'Путь к медиа ответу',
     'text' => 'Текст',

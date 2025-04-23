@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('answers', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('question_id')->constrained()->onDelete('cascade');
-            $table->text('text');
-            $table->boolean('is_primary')->default(false);
-            $table->timestamps();
+        Schema::table('questions', function (Blueprint $table) {
+            $table->text('answer_description')->nullable()->after('correct_answer_media_path');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('answers');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropColumn('answer_description');
+        });
     }
 };
